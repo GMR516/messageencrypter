@@ -1,2 +1,2 @@
-# Message Encrypter
-Deliver private messages to anyone safely and easily.
+# QuickCrypt
+Instantly encrypt any file safely and easily.
