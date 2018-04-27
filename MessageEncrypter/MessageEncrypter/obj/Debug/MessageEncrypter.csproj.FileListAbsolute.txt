@@ -1,0 +1,10 @@
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\bin\Debug\MessageEncrypter.exe.config
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\bin\Debug\MessageEncrypter.exe
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\bin\Debug\MessageEncrypter.pdb
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\obj\Debug\MessageEncrypter.csprojResolveAssemblyReference.cache
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\obj\Debug\WindowsFormsApp1.Form1.resources
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\obj\Debug\MessageEncrypter.csproj.GenerateResource.cache
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\obj\Debug\MessageEncrypter.csproj.CoreCompileInputs.cache
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\obj\Debug\MessageEncrypter.exe
+D:\Github\messageencrypter\MessageEncrypter\MessageEncrypter\obj\Debug\MessageEncrypter.pdb
