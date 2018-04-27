@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageEncrypter", "MessageEncrypter\MessageEncrypter.csproj", "{4AB92017-B463-4572-8E7F-73E91BC661DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickCrypt", "QuickCrypt\QuickCrypt.csproj", "{4AB92017-B463-4572-8E7F-73E91BC661DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

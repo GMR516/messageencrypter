@@ -34,43 +34,42 @@ namespace WindowsFormsApp1
         static void Input(string filePath)
         {
             string code = "";
-            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            fileStream.Seek(-16, SeekOrigin.End);
+            while (fileStream.Position != fileStream.Length)
             {
-                fileStream.Seek(-16, SeekOrigin.End);
-                while (fileStream.Position != fileStream.Length)
-                {
-                    code += fileStream.ReadByte();
-                }
-                Console.WriteLine();
-                if (code == "1011109911412111211610110070105108101717782")
-                {
-                    Console.WriteLine("Encrypted.");
-                    Console.WriteLine("Decrypting...");
-                    fileStream.Dispose();
+                code += fileStream.ReadByte();
+            }
+            Console.WriteLine();
+            if (code == "1011109911412111211610110070105108101717782")
+            {
+                Console.WriteLine("Encrypted.");
+                Console.WriteLine("Decrypting...");
+                fileStream.Dispose();
 
-                    byte[] fileBytes = File.ReadAllBytes(filePath);
-                    byte[] originalFileBytes = new byte[fileBytes.Length - 43];
-                    Array.Copy(fileBytes, originalFileBytes, fileBytes.Length - 43);
-                    File.Delete(filePath);
-                    File.WriteAllBytes(filePath, originalFileBytes);
-                    DecryptFile(filePath, GetPassword());
-                }
-                else
-                {
-                    Console.WriteLine(code);
-                    Console.WriteLine("Not encrypted.");
-                    Console.WriteLine("Encrypting...");
-                    fileStream.Dispose();
+                byte[] fileBytes = File.ReadAllBytes(filePath);
+                byte[] originalFileBytes = new byte[fileBytes.Length - 16];
+                Array.Copy(fileBytes, originalFileBytes, originalFileBytes.Length);
+                File.Delete(filePath);
+                File.WriteAllBytes(filePath, originalFileBytes);
+                DecryptFile(filePath, GetPassword());
+            }
+            else
+            {
+                Console.WriteLine(code);
+                Console.WriteLine("Not encrypted.");
+                Console.WriteLine("Encrypting...");
+                fileStream.Dispose();
 
-                    EncryptFile(filePath, GetPassword());
-                    byte[] codeBytes = { 101, 110, 99, 114, 121, 112, 116, 101, 100, 70, 105, 108, 101, 71, 77, 82 };
-                    using (var stream = new FileStream(filePath + ".secure", FileMode.Append))
-                    {
-                        stream.Write(codeBytes, 0, codeBytes.Length);
-                    }
+                EncryptFile(filePath, GetPassword());
+                byte[] codeBytes = { 101, 110, 99, 114, 121, 112, 116, 101, 100, 70, 105, 108, 101, 71, 77, 82 };
+                using (var stream = new FileStream(filePath, FileMode.Append))
+                {
+                    stream.Write(codeBytes, 0, codeBytes.Length);
                 }
             }
         }
+
 
         #region Encryption
         public static string GetPassword(int length = 0)
