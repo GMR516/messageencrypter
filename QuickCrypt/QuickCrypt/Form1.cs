@@ -9,6 +9,18 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        public static Form2 passwordInput;
+        public static string password = "";
+
+        public static Form3 errorForm;
         public Form1()
         {
             InitializeComponent();
@@ -24,11 +36,14 @@ namespace WindowsFormsApp1
         void Form1_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files)
-            {
-                Console.WriteLine(file);
-                Input(file);
-            }
+            passwordInput = new Form2();
+            passwordInput.ShowDialog();
+
+            //foreach (string file in files)
+            //{
+            Console.WriteLine(files[0]);
+            Input(files[0]);
+            //}
         }
 
         static void Input(string filePath)
@@ -82,7 +97,10 @@ namespace WindowsFormsApp1
                 res.Append(valid[rnd.Next(valid.Length)]);
             }
             return res.ToString();*/
-            return "!Msg0QuiCKEnCr!";
+            if (password.Length < 1)
+                return "!Msg0QuiCKEnCr!";
+            else
+                return password;
         }
         public static void EncryptFile(string file, string password)
         {
@@ -145,33 +163,51 @@ namespace WindowsFormsApp1
         {
             byte[] decryptedBytes = null;
             byte[] saltBytes = new byte[] { 2, 7, 0, 5, 8, 1, 2, 2 };
-
-            using (MemoryStream ms = new MemoryStream())
+            try
             {
-                using (RijndaelManaged AES = new RijndaelManaged())
+                using (MemoryStream ms = new MemoryStream())
                 {
-
-                    AES.KeySize = 256;
-                    AES.BlockSize = 128;
-
-                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
-                    AES.Key = key.GetBytes(AES.KeySize / 8);
-                    AES.IV = key.GetBytes(AES.BlockSize / 8);
-
-                    AES.Mode = CipherMode.CBC;
-
-                    using (var cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
+                    using (RijndaelManaged AES = new RijndaelManaged())
                     {
-                        cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
-                        cs.Close();
+
+                        AES.KeySize = 256;
+                        AES.BlockSize = 128;
+
+                        var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                        AES.Key = key.GetBytes(AES.KeySize / 8);
+                        AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                        AES.Mode = CipherMode.CBC;
+
+                        using (var cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
+                            cs.Close();
+                        }
+                        decryptedBytes = ms.ToArray();
+
+
                     }
-                    decryptedBytes = ms.ToArray();
-
-
                 }
+            }
+            catch
+            {
+
             }
             return decryptedBytes;
         }
         #endregion
+
+        private void pictureBox2_MouseDown(object sender, EventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

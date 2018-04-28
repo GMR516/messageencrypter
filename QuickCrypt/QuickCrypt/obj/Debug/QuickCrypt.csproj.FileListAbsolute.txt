@@ -18,3 +18,5 @@ D:\Github\quickcrypt\QuickCrypt\QuickCrypt\obj\Debug\QuickCrypt.csproj.GenerateR
 D:\Github\quickcrypt\QuickCrypt\QuickCrypt\obj\Debug\QuickCrypt.csproj.CoreCompileInputs.cache
 D:\Github\quickcrypt\QuickCrypt\QuickCrypt\obj\Debug\MessageEncrypter.exe
 D:\Github\quickcrypt\QuickCrypt\QuickCrypt\obj\Debug\MessageEncrypter.pdb
+D:\Github\quickcrypt\QuickCrypt\QuickCrypt\obj\Debug\WindowsFormsApp1.Form2.resources
+D:\Github\quickcrypt\QuickCrypt\QuickCrypt\obj\Debug\WindowsFormsApp1.Form3.resources
