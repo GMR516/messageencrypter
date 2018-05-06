@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -17,6 +18,7 @@ namespace WindowsFormsApp1
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
+        public static Form1 mainApp;
         public static Form2 passwordInput;
         public static string password = "";
 
@@ -26,6 +28,8 @@ namespace WindowsFormsApp1
             InitializeComponent();
             DragEnter += Form1_DragEnter;
             DragDrop += Form1_DragDrop;
+
+            mainApp = this;
         }
 
         void Form1_DragEnter(object sender, DragEventArgs e)
@@ -37,6 +41,8 @@ namespace WindowsFormsApp1
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             passwordInput = new Form2();
+            passwordInput.Location = mainApp.Location;
+            passwordInput.Location = new Point(passwordInput.Location.X + 89, passwordInput.Location.Y + 211);
             passwordInput.ShowDialog();
 
             //foreach (string file in files)
@@ -113,6 +119,8 @@ namespace WindowsFormsApp1
             byte[] bytesEncrypted = AES_Encrypt(bytesToBeEncrypted, passwordBytes);
 
             File.WriteAllBytes(file, bytesEncrypted);
+            //TODO: THIS CAUSES DECRYPTION TO NOT WORK
+            //File.WriteAllBytes(Path.GetDirectoryName(file) + "\\" + Path.GetFileNameWithoutExtension(file) + "_encrypted" + Path.GetExtension(file), bytesEncrypted);
             //File.Move(file, file + ".test");
         }
         public static byte[] AES_Encrypt(byte[] bytesToBeEncrypted, byte[] passwordBytes)
@@ -208,6 +216,16 @@ namespace WindowsFormsApp1
         private void label1_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void label1_MouseEnter(object sender, EventArgs e)
+        {
+            label1.BackColor = Color.FromArgb(224, 2, 2);
+        }
+
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            label1.BackColor = Color.FromArgb(0, 0, 0);
         }
     }
 }
